@@ -1,5 +1,6 @@
 package com.uvg.singlesignon
 
+import android.Manifest
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,11 +33,29 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == LOCATION_PERMISSION_REQUEST) {
             if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return
+                }
                 map.isMyLocationEnabled = true
             }
-            else {//Si en algun momento no funciona la ubicacion, esta se coloca por defecto en la UVG
+            else { //NOTA: Si en algun momento no funciona la ubicacion, esta se coloca por defecto en la UVG
                 Toast.makeText(this, "User has not granted location access permission", Toast.LENGTH_LONG).show()
                 createMarker()
                 Toast.makeText(this,"Location Set By Default", Toast.LENGTH_SHORT).show()

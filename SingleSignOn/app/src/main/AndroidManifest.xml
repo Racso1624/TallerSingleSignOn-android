@@ -12,7 +12,7 @@
         android:theme="@style/Theme.SingleSignOn">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="google_map_key"/>
+            android:value="AIzaSyBDt1Tfjkq0-e6-mtwYOmWKlB1Xf6P25DQ"/>
         <activity android:name=".MapActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -21,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SignActivity"/>
     </application>
 
